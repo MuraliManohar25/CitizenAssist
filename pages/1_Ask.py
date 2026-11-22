@@ -171,8 +171,8 @@ with documents_tab:
                     st.rerun()
                 except Exception as e:
                     st.error("The document summary could not be prepared. Please try again later.")
-                    with st.expaf"{type(e).__name__}: {nder("}"Technical details"):
-                        st.code(str(e))
+                    with st.expander("Technical details"):
+                        st.code(f"{type(e).__name__}: {str(e)}")
     else:
         document_result = st.session_state.get("docs_steps_content", {})
         if document_result.get("content"):
