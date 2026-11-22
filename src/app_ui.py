@@ -11,6 +11,7 @@ from typing import Any, Iterable
 import streamlit as st
 from dotenv import load_dotenv
 
+from src.config import get_setting
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 LANGUAGES = ("English", "Telugu")
@@ -24,7 +25,7 @@ def project_path(*parts: str) -> Path:
 
 
 def vectorstore_dir() -> Path:
-    configured_path = Path(os.getenv("VECTORSTORE_PATH", "vectorstore"))
+    configured_path = Path(get_setting("VECTORSTORE_PATH", "vectorstore"))
     if not configured_path.is_absolute():
         configured_path = PROJECT_ROOT / configured_path
     return configured_path.resolve()
@@ -87,7 +88,7 @@ def escape_html(value: Any) -> str:
 
 
 def admin_is_enabled() -> bool:
-    return bool(os.getenv("ADMIN_PASSWORD", "").strip())
+    return bool(get_setting("ADMIN_PASSWORD", "").strip())
 
 
 def apply_page_config(title: str, icon: str = "🇮🇳") -> None:

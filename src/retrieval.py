@@ -9,6 +9,7 @@ from typing import List, Dict, Any, Optional, Tuple
 from pathlib import Path
 
 from src.ingestion import VectorStore, EmbeddingEngine, DocumentChunk
+from src.config import get_setting
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +25,7 @@ class RetrievalEngine:
         self.vectorstore_path = vectorstore_path
         self.vector_store = VectorStore(vectorstore_path)
         self.embedding_engine = EmbeddingEngine(
-            os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
+            get_setting("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
         )
         self._loaded = False
 

@@ -15,9 +15,11 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from dotenv import load_dotenv
-load_dotenv(PROJECT_ROOT / ".env")
 
+from src.config import get_setting
 from src.ingestion import VectorStore, EmbeddingEngine, ingest_all_pdfs
+
+load_dotenv(PROJECT_ROOT / ".env")
 
 logging.basicConfig(
     level=logging.INFO,
@@ -33,7 +35,7 @@ def main():
 
     # Paths
     schemes_dir = PROJECT_ROOT / "data" / "schemes"
-    vectorstore_path = Path(os.getenv("VECTORSTORE_PATH", "vectorstore"))
+    vectorstore_path = Path(get_setting("VECTORSTORE_PATH", "vectorstore"))
     if not vectorstore_path.is_absolute():
         vectorstore_path = PROJECT_ROOT / vectorstore_path
     schemes_config_path = PROJECT_ROOT / "schemes_config.json"
@@ -62,7 +64,7 @@ def main():
 
     # Initialize components
     print("\n[INFO] Loading embedding model (all-MiniLM-L6-v2)...")
-    embedding_model = os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
+    embedding_model = get_setting("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
     embedding_engine = EmbeddingEngine(embedding_model)
     embedding_engine.load()
     print("   Embedding model ready")

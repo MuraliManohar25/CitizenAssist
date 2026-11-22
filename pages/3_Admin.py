@@ -17,10 +17,11 @@ from src.app_ui import (
     render_sidebar,
     vectorstore_dir,
 )
+from src.config import get_config_status, get_setting
 
 
 def admin_login() -> bool:
-    expected_password = os.getenv("ADMIN_PASSWORD", "")
+    expected_password = get_setting("ADMIN_PASSWORD", "")
     if not expected_password:
         return False
     if st.session_state.get("admin_authenticated"):
@@ -104,6 +105,16 @@ st.markdown(
     "3. Run `python scripts/ingest_all.py` in the build workflow.\n"
     "4. Validate citations and a sample question before releasing the deployment."
 )
+
+st.divider()
+with st.expander("Configuration Status"):
+    config_status = get_config_status()
+    st.markdown("**Configuration Settings:**")
+    for key, value in config_status.items():
+        if key == "GOOGLE_API_KEY" or key == "ADMIN_PASSWORD":
+            st.markdown(f"- **{key}**: {'✓ Set' if value else '✗ Not set'}")
+        else:
+            st.markdown(f"- **{key}**: `{value}`")
 
 if st.button("Sign out of admin", use_container_width=True):
     st.session_state.pop("admin_authenticated", None)

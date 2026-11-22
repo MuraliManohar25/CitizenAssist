@@ -11,6 +11,7 @@ from typing import List, Dict, Any, Optional, Tuple
 from dotenv import load_dotenv
 
 from src.retrieval import RetrievalEngine, get_retrieval_engine
+from src.config import get_setting
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 load_dotenv(PROJECT_ROOT / ".env")
@@ -30,10 +31,10 @@ class LLMServiceError(RuntimeError):
 def setup_llm():
     """Configure Google Gemini API — tries new SDK first, falls back to old."""
     global _llm_client, _llm_type
-    api_key = os.getenv("GOOGLE_API_KEY", "") or st.secrets.get("GOOGLE_API_KEY", "")
+    api_key = get_setting("GOOGLE_API_KEY", "")
     if not api_key or api_key == "your_google_api_key_here":
         raise LLMServiceError("The language model is not configured. Please set GOOGLE_API_KEY in .env or Streamlit secrets.")
-    model_name = os.getenv("LLM_MODEL", "gemini-3.5-flash-lite")
+    model_name = get_setting("LLM_MODEL", "gemini-3.5-flash-lite")
 
     # Try new google-genai SDK first
     try:
@@ -135,8 +136,8 @@ class RAGPipeline:
 
     def __init__(self, vectorstore_path: str = "./vectorstore"):
         self.retrieval_engine = get_retrieval_engine(vectorstore_path)
-        self.min_similarity = float(os.getenv("RAG_MIN_SIMILARITY", "0.20"))
-        self.top_k = int(os.getenv("RAG_TOP_K", "5"))
+        self.min_similarity = float(get_setting("RAG_MIN_SIMILARITY", "0.20"))
+        self.top_k = int(get_setting("RAG_TOP_K", "5"))
 
     def answer(
         self,
