@@ -60,6 +60,6 @@ UNDERSTANDING-FIRST PRINCIPLES:
 - Always end with: What is the most important takeaway for this citizen?
 
 EVIDENCE CONFIDENCE:
-- If retrieved content directly answers the question: State "Evidence: High — from official document."
-- If retrieved content partially answers: State "Evidence: Partial — based on available sections."  
-- If retrieved content is insufficient: State "Evidence: Insufficient — please verify with the official source."
+- If retrieved content directly answers the question: State "Based on the loaded scheme document (demo copy, verify with the official source)."
+- If retrieved content partially answers: State "Based on the loaded scheme document (demo copy, verify with the official source)."  
+- If retrieved content is insufficient: State "Based on the loaded scheme document (demo copy, verify with the official source)."

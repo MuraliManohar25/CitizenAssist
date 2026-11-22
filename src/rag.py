@@ -88,12 +88,24 @@ def call_llm(prompt: str, temperature: float = 0.3, max_retries: int = 1) -> str
                     contents=prompt,
                     config=types.GenerateContentConfig(
                         temperature=temperature,
-                        max_output_tokens=2048,
+                        max_output_tokens=4096,
                     )
                 )
+                # Log finish reason for debugging
+                finish_reason = "UNKNOWN"
+                if hasattr(response, 'candidates') and response.candidates:
+                    finish_reason = getattr(response.candidates[0], 'finish_reason', 'UNKNOWN')
+                    logger.info(f"LLM response finish_reason: {finish_reason}")
+                
                 text = getattr(response, "text", None)
                 if not text:
-                    raise LLMServiceError("The language model returned an empty response.")
+                    # Retry on empty response with larger limit
+                    if attempt < max_retries:
+                        logger.warning(f"Empty response, retrying with larger limit (attempt {attempt + 1}/{max_retries})")
+                        time.sleep(1)
+                        continue
+                    else:
+                        raise LLMServiceError(f"The language model returned an empty response (finish_reason: {finish_reason}).")
                 return text
 
             else:  # genai_old
@@ -102,12 +114,24 @@ def call_llm(prompt: str, temperature: float = 0.3, max_retries: int = 1) -> str
                     prompt,
                     generation_config=genai_old.types.GenerationConfig(
                         temperature=temperature,
-                        max_output_tokens=2048,
+                        max_output_tokens=4096,
                     )
                 )
+                # Log finish reason for debugging
+                finish_reason = "UNKNOWN"
+                if hasattr(response, 'candidates') and response.candidates:
+                    finish_reason = getattr(response.candidates[0], 'finish_reason', 'UNKNOWN')
+                    logger.info(f"LLM response finish_reason: {finish_reason}")
+                
                 text = getattr(response, "text", None)
                 if not text:
-                    raise LLMServiceError("The language model returned an empty response.")
+                    # Retry on empty response with larger limit
+                    if attempt < max_retries:
+                        logger.warning(f"Empty response, retrying with larger limit (attempt {attempt + 1}/{max_retries})")
+                        time.sleep(1)
+                        continue
+                    else:
+                        raise LLMServiceError(f"The language model returned an empty response (finish_reason: {finish_reason}).")
                 return text
 
         except Exception as e:
@@ -190,9 +214,10 @@ class RAGPipeline:
         if conversation_history:
             history_parts = []
             # Filter out error messages and limit to last 4 turns
-            valid_history = [msg for msg in conversation_history if msg.get("role") != "error"]
+            valid_history = [msg for msg in conversation_history if msg.get("role") not in ("error", "assistant")]
+            # Convert assistant to model for Gemini compatibility
             for msg in valid_history[-8:]:  # Last 4 exchanges (8 messages)
-                role = "User" if msg.get("role") == "user" else "CitizenAssist"
+                role = "User" if msg.get("role") == "user" else "model"
                 content = msg.get('content', '')
                 if content:  # Skip empty messages
                     history_parts.append(f"{role}: {content[:200]}")

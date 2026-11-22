@@ -123,11 +123,18 @@ def apply_global_styles() -> None:
           html, body, [data-testid="stAppViewContainer"] {
             background: var(--ca-canvas) !important;
             color: var(--ca-ink) !important;
-            font-family: "Noto Sans Telugu", "Segoe UI", system-ui, sans-serif !important;
           }
           
-          * {
-            font-family: "Noto Sans Telugu", "Segoe UI", system-ui, sans-serif !important;
+          body, p, h1, h2, h3, h4, h5, h6, label, li, td, th, input, textarea, button, [data-testid="stMarkdownContainer"] {
+            font-family: "Noto Sans Telugu", "Inter", system-ui, sans-serif;
+          }
+          
+          /* Restore Material Symbols icon font */
+          [data-testid="stIconMaterial"],
+          [data-testid="stExpanderToggleIcon"],
+          .material-symbols-rounded,
+          span[class*="material"] {
+            font-family: "Material Symbols Rounded" !important;
           }
 
           #MainMenu, footer { visibility: hidden; }
@@ -152,6 +159,12 @@ def apply_global_styles() -> None:
           /* Final sidebar color rule - ensures all text is readable */
           [data-testid="stSidebar"], [data-testid="stSidebar"] * {
             color: #F2F5FA !important;
+          }
+          
+          /* Fix sidebar button text color (e.g., Start new conversation) */
+          [data-testid="stSidebar"] button,
+          [data-testid="stSidebar"] button * {
+            color: #0F2A5C !important;
           }
 
           h1, h2, h3 { color: var(--ca-ink) !important; letter-spacing: -0.02em; }

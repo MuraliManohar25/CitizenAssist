@@ -72,16 +72,16 @@ def format_citations(sources: List[Dict[str, Any]], language: str = "English") -
 def format_confidence_badge(confidence: str, language: str = "English") -> str:
     """Format a confidence badge string."""
     badges = {
-        "High": "Evidence: High, directly from the official document",
-        "Medium": "Evidence: Medium, based on related sections",
-        "Low": "Evidence: Low, based on a partial match",
-        "Insufficient": "Evidence: Insufficient, please verify with the official source",
+        "High": "Based on the loaded scheme document (demo copy, verify with the official source)",
+        "Medium": "Based on the loaded scheme document (demo copy, verify with the official source)",
+        "Low": "Based on the loaded scheme document (demo copy, verify with the official source)",
+        "Insufficient": "Based on the loaded scheme document (demo copy, verify with the official source)",
     }
     badges_te = {
-        "High": "సాక్ష్యం: అధికం, నేరుగా అధికారిక పత్రం నుండి",
-        "Medium": "సాక్ష్యం: మధ్యస్థం, సంబంధిత విభాగాల నుండి",
-        "Low": "సాక్ష్యం: పరిమితం, పాక్షిక సరిపోలిక ఆధారంగా",
-        "Insufficient": "సాక్ష్యం: తగినంత లేదు, అధికారిక మూలాన్ని ధృవీకరించండి",
+        "High": "లోడ్ చేసిన పథకం పత్రం ఆధారంగా (డెమో కాపీ, అధికారిక మూలంతో ధృవీకరించండి)",
+        "Medium": "లోడ్ చేసిన పథకం పత్రం ఆధారంగా (డెమో కాపీ, అధికారిక మూలంతో ధృవీకరించండి)",
+        "Low": "లోడ్ చేసిన పథకం పత్రం ఆధారంగా (డెమో కాపీ, అధికారిక మూలంతో ధృవీకరించండి)",
+        "Insufficient": "లోడ్ చేసిన పథకం పత్రం ఆధారంగా (డెమో కాపీ, అధికారిక మూలంతో ధృవీకరించండి)",
     }
     if language == "Telugu":
         return badges_te.get(confidence, "")
