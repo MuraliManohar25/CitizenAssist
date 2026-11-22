@@ -5,5 +5,13 @@ backgroundColor = "#F5F8FB"
 secondaryBackgroundColor = "#EAF4FB"
 textColor = "#162235"
 
+[theme.sidebar]
+backgroundColor = "#12305a"
+secondaryBackgroundColor = "#1a3e6e"
+textColor = "#F2F5FA"
+
 [server]
 maxUploadSize = 20
+
+[client]
+showSidebarNavigation = false

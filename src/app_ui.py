@@ -132,15 +132,6 @@ def apply_global_styles() -> None:
             padding: 2rem 2rem 3.5rem;
           }
 
-          [data-testid="stSidebar"] {
-            background: var(--ca-navy) !important;
-            border-right: 1px solid rgba(255, 255, 255, 0.16);
-          }
-          [data-testid="stSidebar"] [data-testid="stMarkdownContainer"],
-          [data-testid="stSidebar"] label,
-          [data-testid="stSidebar"] .stCaption {
-            color: #f5f9ff !important;
-          }
           [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] > div {
             background: #ffffff !important;
             color: var(--ca-ink) !important;
@@ -149,7 +140,7 @@ def apply_global_styles() -> None:
           [data-testid="stSidebar"] .stSelectbox svg { fill: var(--ca-ink) !important; }
           [data-testid="stSidebar"] .stButton > button {
             background: transparent !important;
-            color: #f5f9ff !important;
+            color: #F2F5FA !important;
             border-color: rgba(255, 255, 255, 0.4) !important;
           }
 
