@@ -142,9 +142,10 @@ if question:
                 )
                 st.error(safe_error)
                 with st.expander("Technical details"):
-                    st.code(str(e))
+                    st.code(f"{type(e).__name__}: {str(e)}")
+                # Store error separately, not in chat history for LLM
                 st.session_state.chat_history.append(
-                    {"role": "assistant", "content": safe_error, "sources": []}
+                    {"role": "error", "content": safe_error, "sources": []}
                 )
 
 st.divider()
@@ -170,7 +171,7 @@ with documents_tab:
                     st.rerun()
                 except Exception as e:
                     st.error("The document summary could not be prepared. Please try again later.")
-                    with st.expander("Technical details"):
+                    with st.expaf"{type(e).__name__}: {nder("}"Technical details"):
                         st.code(str(e))
     else:
         document_result = st.session_state.get("docs_steps_content", {})

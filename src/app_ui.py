@@ -125,6 +125,10 @@ def apply_global_styles() -> None:
             color: var(--ca-ink) !important;
             font-family: "Noto Sans Telugu", "Segoe UI", system-ui, sans-serif !important;
           }
+          
+          * {
+            font-family: "Noto Sans Telugu", "Segoe UI", system-ui, sans-serif !important;
+          }
 
           #MainMenu, footer { visibility: hidden; }
           [data-testid="stHeader"] { background: transparent; }
@@ -143,6 +147,11 @@ def apply_global_styles() -> None:
             background: transparent !important;
             color: #F2F5FA !important;
             border-color: rgba(255, 255, 255, 0.4) !important;
+          }
+          
+          /* Final sidebar color rule - ensures all text is readable */
+          [data-testid="stSidebar"], [data-testid="stSidebar"] * {
+            color: #F2F5FA !important;
           }
 
           h1, h2, h3 { color: var(--ca-ink) !important; letter-spacing: -0.02em; }
@@ -229,7 +238,7 @@ def render_sidebar(schemes: list[dict[str, Any]], active_page: str) -> str:
         st.divider()
 
         language = st.selectbox(
-            "Language",
+            "Language / భాష",
             options=list(LANGUAGES),
             index=list(LANGUAGES).index(language) if language in LANGUAGES else 0,
         )

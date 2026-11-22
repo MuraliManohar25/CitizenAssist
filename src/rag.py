@@ -67,51 +67,67 @@ def get_llm():
     return _llm_client
 
 
-def call_llm(prompt: str, temperature: float = 0.3) -> str:
+def call_llm(prompt: str, temperature: float = 0.3, max_retries: int = 1) -> str:
     """Call the configured LLM and return non-empty text.
 
     Provider details are logged server-side only. Callers receive a safe error that
     can be shown to citizens without exposing configuration or upstream internals.
     """
-    try:
-        get_llm()
+    import time
+    
+    for attempt in range(max_retries + 1):
+        try:
+            get_llm()
 
-        if _llm_type == "genai_new":
-            from google import genai
-            from google.genai import types
-            client, model_name = _llm_client
-            response = client.models.generate_content(
-                model=model_name,
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    temperature=temperature,
-                    max_output_tokens=2048,
+            if _llm_type == "genai_new":
+                from google import genai
+                from google.genai import types
+                client, model_name = _llm_client
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        temperature=temperature,
+                        max_output_tokens=2048,
+                    )
                 )
-            )
-            text = getattr(response, "text", None)
-            if not text:
-                raise LLMServiceError("The language model returned an empty response.")
-            return text
+                text = getattr(response, "text", None)
+                if not text:
+                    raise LLMServiceError("The language model returned an empty response.")
+                return text
 
-        else:  # genai_old
-            import google.generativeai as genai_old
-            response = _llm_client.generate_content(
-                prompt,
-                generation_config=genai_old.types.GenerationConfig(
-                    temperature=temperature,
-                    max_output_tokens=2048,
+            else:  # genai_old
+                import google.generativeai as genai_old
+                response = _llm_client.generate_content(
+                    prompt,
+                    generation_config=genai_old.types.GenerationConfig(
+                        temperature=temperature,
+                        max_output_tokens=2048,
+                    )
                 )
-            )
-            text = getattr(response, "text", None)
-            if not text:
-                raise LLMServiceError("The language model returned an empty response.")
-            return text
+                text = getattr(response, "text", None)
+                if not text:
+                    raise LLMServiceError("The language model returned an empty response.")
+                return text
 
-    except Exception as e:
-        logger.error(f"LLM call failed: {e}")
-        if isinstance(e, LLMServiceError):
-            raise
-        raise LLMServiceError("The language model is temporarily unavailable.") from e
+        except Exception as e:
+            error_type = type(e).__name__
+            error_msg = str(e)
+            
+            # Check for rate limit errors
+            if "429" in error_msg or "ResourceExhausted" in error_type or "quota" in error_msg.lower():
+                if attempt < max_retries:
+                    logger.warning(f"Rate limit hit, retrying in 3 seconds (attempt {attempt + 1}/{max_retries})")
+                    time.sleep(3)
+                    continue
+                else:
+                    logger.exception(f"LLM rate limit error after retries: {e}")
+                    raise LLMServiceError(f"Rate limit exceeded. Please try again in a moment.") from e
+            
+            logger.exception(f"LLM call failed: {e}")
+            if isinstance(e, LLMServiceError):
+                raise
+            raise LLMServiceError("The language model is temporarily unavailable.") from e
 
 
 # ---------------------------------------------------------------------------
@@ -169,13 +185,17 @@ class RAGPipeline:
         # 3. Check if we have sufficient evidence
         insufficient = not results or confidence == "Insufficient"
 
-        # 4. Build conversation history string
+        # 4. Build conversation history string (limit to last 4 turns = 8 messages)
         history_str = ""
         if conversation_history:
             history_parts = []
-            for msg in conversation_history[-6:]:  # Last 3 exchanges
+            # Filter out error messages and limit to last 4 turns
+            valid_history = [msg for msg in conversation_history if msg.get("role") != "error"]
+            for msg in valid_history[-8:]:  # Last 4 exchanges (8 messages)
                 role = "User" if msg.get("role") == "user" else "CitizenAssist"
-                history_parts.append(f"{role}: {msg.get('content', '')[:200]}")
+                content = msg.get('content', '')
+                if content:  # Skip empty messages
+                    history_parts.append(f"{role}: {content[:200]}")
             history_str = "\n".join(history_parts)
 
         # 5. Build and call LLM prompt
@@ -185,7 +205,7 @@ class RAGPipeline:
         if simple_mode:
             question_notes.append("Use extremely simple language. Explain government terms in everyday words.")
         if language == "Telugu":
-            question_notes.append("Respond entirely in Telugu script (తెలుగు).")
+            question_notes.append("Answer entirely in Telugu script (తెలుగు). Keep scheme names, amounts, and page numbers exact.")
         question_augmented = question
         if question_notes:
             question_augmented = f"{question}\n\n[Response requirements: {' '.join(question_notes)}]"
