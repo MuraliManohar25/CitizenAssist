@@ -1,0 +1,164 @@
+{
+  "schemes": [
+    {
+      "id": "ts_merit_scholarship",
+      "name": "Telangana State Merit Scholarship",
+      "name_te": "తెలంగాణ రాష్ట్ర మెరిట్ స్కాలర్‌షిప్",
+      "department": "Telangana State Education Department",
+      "department_te": "తెలంగాణ రాష్ట్ర విద్యా శాఖ",
+      "state": "Telangana",
+      "year": "2024-25",
+      "target_users": "Students (Post-Matric)",
+      "target_users_te": "విద్యార్థులు (పోస్ట్-మెట్రిక్)",
+      "short_description": "Financial assistance for meritorious students from Telangana pursuing higher education.",
+      "short_description_te": "ఉన్నత విద్యను అభ్యసించే తెలంగాణ విద్యార్థులకు ఆర్థిక సహాయం.",
+      "icon": "🎓",
+      "pdf_file": "ts_merit_scholarship.pdf",
+      "eligibility_fields": [
+        {"key": "age", "label": "Your Age", "label_te": "మీ వయసు", "type": "number", "min": 15, "max": 35},
+        {"key": "state", "label": "State of Residence", "label_te": "నివాస రాష్ట్రం", "type": "select", "options": ["Telangana", "Other"]},
+        {"key": "institution_type", "label": "Type of Institution", "label_te": "సంస్థ రకం", "type": "select", "options": ["Government College", "Aided College", "Private Unaided", "Deemed University", "Other"]},
+        {"key": "course", "label": "Course/Program", "label_te": "కోర్సు/ప్రోగ్రామ్", "type": "select", "options": ["B.Tech/B.E.", "MBBS/BDS", "B.Sc", "B.Com", "B.A.", "M.Tech", "M.Sc", "MBA", "MCA", "PhD", "Other"]},
+        {"key": "annual_income", "label": "Annual Family Income (₹)", "label_te": "వార్షిక కుటుంబ ఆదాయం (₹)", "type": "number", "min": 0, "max": 1000000},
+        {"key": "category", "label": "Category", "label_te": "కేటగిరీ", "type": "select", "options": ["SC", "ST", "BC-A", "BC-B", "BC-C", "BC-D", "BC-E", "EWS", "OC/General", "Prefer not to say"]},
+        {"key": "marks_percent", "label": "Previous Year Marks (%)", "label_te": "గత సంవత్సరం మార్కులు (%)", "type": "number", "min": 0, "max": 100},
+        {"key": "has_domicile", "label": "Do you have Telangana Domicile Certificate?", "label_te": "మీకు తెలంగాణ డొమిసైల్ సర్టిఫికెట్ ఉందా?", "type": "select", "options": ["Yes", "No", "Not sure"]}
+      ]
+    },
+    {
+      "id": "pm_kisan",
+      "name": "PM-KISAN Samman Nidhi",
+      "name_te": "PM-కిసాన్ సమ్మాన్ నిధి",
+      "department": "Ministry of Agriculture & Farmers Welfare, Government of India",
+      "department_te": "వ్యవసాయ మరియు రైతు సంక్షేమ మంత్రిత్వ శాఖ",
+      "state": "All India",
+      "year": "2024-25",
+      "target_users": "Small & Marginal Farmers",
+      "target_users_te": "చిన్న మరియు అల్పసంఖ్యాక రైతులు",
+      "short_description": "Direct income support of ₹6,000 per year to eligible farmer families.",
+      "short_description_te": "అర్హులైన రైతు కుటుంబాలకు సంవత్సరానికి ₹6,000 ప్రత్యక్ష ఆదాయ మద్దతు.",
+      "icon": "🌾",
+      "pdf_file": "pm_kisan.pdf",
+      "eligibility_fields": [
+        {"key": "land_holding", "label": "Agricultural Land Holding (acres)", "label_te": "వ్యవసాయ భూమి (ఎకరాలు)", "type": "number", "min": 0, "max": 100},
+        {"key": "land_ownership", "label": "Land Ownership Type", "label_te": "భూమి యాజమాన్య రకం", "type": "select", "options": ["Own land (cultivable)", "Leased land", "No land (tenant farmer)", "Other"]},
+        {"key": "state", "label": "State", "label_te": "రాష్ట్రం", "type": "text"},
+        {"key": "occupation", "label": "Primary Occupation", "label_te": "ప్రాథమిక వృత్తి", "type": "select", "options": ["Farmer", "Agricultural Laborer", "Both farming and other", "Other"]},
+        {"key": "govt_employee", "label": "Is any family member a government employee?", "label_te": "కుటుంబంలో ఎవరైనా ప్రభుత్వ ఉద్యోగి ఉన్నారా?", "type": "select", "options": ["No", "Yes - serving", "Yes - retired with pension > ₹10,000/month"]},
+        {"key": "income_taxpayer", "label": "Is any family member an income taxpayer?", "label_te": "కుటుంబంలో ఎవరైనా ఆదాయపు పన్ను చెల్లించేవారు ఉన్నారా?", "type": "select", "options": ["No", "Yes"]},
+        {"key": "has_aadhaar", "label": "Do you have an Aadhaar card?", "label_te": "మీకు ఆధార్ కార్డు ఉందా?", "type": "select", "options": ["Yes", "No"]}
+      ]
+    },
+    {
+      "id": "pmay",
+      "name": "Pradhan Mantri Awas Yojana (Urban)",
+      "name_te": "ప్రధాన మంత్రి ఆవాస్ యోజన (పట్టణ)",
+      "department": "Ministry of Housing & Urban Affairs, Government of India",
+      "department_te": "గృహనిర్మాణ మరియు పట్టణ వ్యవహారాల మంత్రిత్వ శాఖ",
+      "state": "All India (Urban)",
+      "year": "2024-25",
+      "target_users": "EWS/LIG/MIG Urban Households",
+      "target_users_te": "EWS/LIG/MIG పట్టణ కుటుంబాలు",
+      "short_description": "Housing subsidy for economically weaker sections to own a pucca house.",
+      "short_description_te": "పక్కా ఇంటిని కలిగి ఉండటానికి ఆర్థికంగా బలహీన వర్గాలకు గృహ సబ్సిడీ.",
+      "icon": "🏠",
+      "pdf_file": "pmay.pdf",
+      "eligibility_fields": [
+        {"key": "annual_income", "label": "Annual Household Income (₹)", "label_te": "వార్షిక గృహ ఆదాయం (₹)", "type": "number", "min": 0, "max": 2000000},
+        {"key": "owns_house", "label": "Does your family own a pucca house anywhere in India?", "label_te": "మీ కుటుంబానికి భారతదేశంలో ఎక్కడైనా పక్కా ఇల్లు ఉందా?", "type": "select", "options": ["No", "Yes"]},
+        {"key": "has_benefited_before", "label": "Has your family received housing assistance from any government scheme before?", "label_te": "మీ కుటుంబం ఇంతకు ముందు ఏ ప్రభుత్వ పథకం నుండి గృహ సహాయం పొందిందా?", "type": "select", "options": ["No", "Yes"]},
+        {"key": "area_type", "label": "Area of Residence", "label_te": "నివాస ప్రాంతం", "type": "select", "options": ["Urban", "Rural"]},
+        {"key": "category", "label": "Category", "label_te": "కేటగిరీ", "type": "select", "options": ["EWS (up to ₹3 lakh/year)", "LIG (₹3-6 lakh/year)", "MIG-I (₹6-12 lakh/year)", "MIG-II (₹12-18 lakh/year)"]},
+        {"key": "has_aadhaar", "label": "Do you have Aadhaar linked bank account?", "label_te": "మీకు ఆధార్ అనుసంధానమైన బ్యాంక్ ఖాతా ఉందా?", "type": "select", "options": ["Yes", "No"]}
+      ]
+    },
+    {
+      "id": "ayushman_bharat",
+      "name": "Ayushman Bharat – PM-JAY",
+      "name_te": "ఆయుష్మాన్ భారత్ – PM-JAY",
+      "department": "National Health Authority, Government of India",
+      "department_te": "జాతీయ ఆరోగ్య ప్రాధికరణ",
+      "state": "All India",
+      "year": "2024-25",
+      "target_users": "BPL Families, SECC Beneficiaries",
+      "target_users_te": "BPL కుటుంబాలు, SECC లబ్ధిదారులు",
+      "short_description": "Health insurance coverage of ₹5 lakh per year for hospitalization expenses.",
+      "short_description_te": "ఆస్పత్రి ఖర్చుల కోసం సంవత్సరానికి ₹5 లక్షల ఆరోగ్య బీమా కవరేజ్.",
+      "icon": "🏥",
+      "pdf_file": "ayushman_bharat.pdf",
+      "eligibility_fields": [
+        {"key": "secc_listed", "label": "Is your family listed in SECC (Socio-Economic Caste Census) 2011?", "label_te": "మీ కుటుంబం SECC 2011లో నమోదు అయిందా?", "type": "select", "options": ["Yes", "No", "Not sure"]},
+        {"key": "ration_card", "label": "Do you have a ration card?", "label_te": "మీకు రేషన్ కార్డు ఉందా?", "type": "select", "options": ["Yes - BPL", "Yes - APL", "No"]},
+        {"key": "state", "label": "State", "label_te": "రాష్ట్రం", "type": "text"},
+        {"key": "has_aadhaar", "label": "Do you have Aadhaar card?", "label_te": "మీకు ఆధార్ కార్డు ఉందా?", "type": "select", "options": ["Yes", "No"]},
+        {"key": "mobile", "label": "Mobile number registered with Aadhaar?", "label_te": "ఆధార్‌తో మొబైల్ నంబర్ రిజిస్టర్ అయిందా?", "type": "select", "options": ["Yes", "No"]}
+      ]
+    },
+    {
+      "id": "nsp_post_matric",
+      "name": "National Scholarship Portal – Post-Matric",
+      "name_te": "జాతీయ స్కాలర్‌షిప్ పోర్టల్ – పోస్ట్ మెట్రిక్",
+      "department": "Ministry of Education, Government of India",
+      "department_te": "విద్యా మంత్రిత్వ శాఖ, భారత ప్రభుత్వం",
+      "state": "All India",
+      "year": "2024-25",
+      "target_users": "SC/ST/OBC/Minority Students (Post 10th)",
+      "target_users_te": "SC/ST/OBC/మైనారిటీ విద్యార్థులు (10వ తరగతి తర్వాత)",
+      "short_description": "Central scholarship for students from reserved categories pursuing post-matric education.",
+      "short_description_te": "పోస్ట్-మెట్రిక్ విద్యను అభ్యసించే రిజర్వ్డ్ కేటగిరీ విద్యార్థులకు కేంద్ర స్కాలర్‌షిప్.",
+      "icon": "📚",
+      "pdf_file": "nsp_post_matric.pdf",
+      "eligibility_fields": [
+        {"key": "category", "label": "Category", "label_te": "కేటగిరీ", "type": "select", "options": ["SC", "ST", "OBC", "Minority (Muslim/Christian/Sikh/Buddhist/Jain/Zoroastrian)", "EBC (Economically Backward Class)", "Other"]},
+        {"key": "annual_income", "label": "Annual Family Income (₹)", "label_te": "వార్షిక కుటుంబ ఆదాయం (₹)", "type": "number", "min": 0, "max": 500000},
+        {"key": "course_level", "label": "Current Course Level", "label_te": "ప్రస్తుత కోర్సు స్థాయి", "type": "select", "options": ["Class 11", "Class 12", "Diploma/Certificate", "Graduation (UG)", "Post-Graduation (PG)", "PhD/Research"]},
+        {"key": "institution_recognition", "label": "Is your institution recognized by government/UGC/AICTE?", "label_te": "మీ సంస్థ ప్రభుత్వం/UGC/AICTE చేత గుర్తింపు పొందిందా?", "type": "select", "options": ["Yes", "No", "Not sure"]},
+        {"key": "not_availing_other", "label": "Are you currently receiving any other scholarship from Central/State Govt for same purpose?", "label_te": "మీరు ప్రస్తుతం అదే ప్రయోజనం కోసం మరొక స్కాలర్‌షిప్ పొందుతున్నారా?", "type": "select", "options": ["No", "Yes"]},
+        {"key": "has_bank_account", "label": "Do you have an Aadhaar-linked bank account?", "label_te": "మీకు ఆధార్ అనుసంధానమైన బ్యాంక్ ఖాతా ఉందా?", "type": "select", "options": ["Yes", "No"]}
+      ]
+    },
+    {
+      "id": "mgnrega",
+      "name": "MGNREGA – Employment Guarantee",
+      "name_te": "MGNREGA – ఉపాధి హామీ పథకం",
+      "department": "Ministry of Rural Development, Government of India",
+      "department_te": "గ్రామీణాభివృద్ధి మంత్రిత్వ శాఖ",
+      "state": "All India (Rural)",
+      "year": "2024-25",
+      "target_users": "Rural Adult Workers",
+      "target_users_te": "గ్రామీణ వయోజన కార్మికులు",
+      "short_description": "Guarantees 100 days of wage employment per year to rural households.",
+      "short_description_te": "గ్రామీణ కుటుంబాలకు సంవత్సరానికి 100 రోజుల వేతన ఉపాధిని హామీ ఇస్తుంది.",
+      "icon": "👷",
+      "pdf_file": "mgnrega.pdf",
+      "eligibility_fields": [
+        {"key": "area_type", "label": "Area of Residence", "label_te": "నివాస ప్రాంతం", "type": "select", "options": ["Rural", "Urban"]},
+        {"key": "age", "label": "Your Age", "label_te": "మీ వయసు", "type": "number", "min": 14, "max": 80},
+        {"key": "willing_to_work", "label": "Willing to do unskilled manual work?", "label_te": "అనుభవం అవసరం లేని శారీరక శ్రమ చేయడానికి సిద్ధంగా ఉన్నారా?", "type": "select", "options": ["Yes", "No"]},
+        {"key": "has_job_card", "label": "Do you have a MGNREGA Job Card?", "label_te": "మీకు MGNREGA జాబ్ కార్డు ఉందా?", "type": "select", "options": ["Yes", "No - want to apply for one"]},
+        {"key": "state", "label": "State", "label_te": "రాష్ట్రం", "type": "text"}
+      ]
+    },
+    {
+      "id": "ts_caste_certificate",
+      "name": "Telangana Caste & Income Certificate Services",
+      "name_te": "తెలంగాణ కుల మరియు ఆదాయ ధృవపత్రాల సేవలు",
+      "department": "Telangana Revenue Department",
+      "department_te": "తెలంగాణ రెవెన్యూ శాఖ",
+      "state": "Telangana",
+      "year": "2024",
+      "target_users": "All Telangana Residents",
+      "target_users_te": "అన్ని తెలంగాణ నివాసితులు",
+      "short_description": "Guidance on obtaining caste certificate, income certificate, and domicile certificate in Telangana.",
+      "short_description_te": "తెలంగాణలో కుల, ఆదాయ మరియు నివాస ధృవపత్రాలు పొందే విధానంపై మార్గదర్శకత్వం.",
+      "icon": "📋",
+      "pdf_file": "ts_caste_certificate.pdf",
+      "eligibility_fields": [
+        {"key": "state", "label": "State of Residence", "label_te": "నివాస రాష్ట్రం", "type": "select", "options": ["Telangana", "Other"]},
+        {"key": "certificate_type", "label": "Certificate Required", "label_te": "అవసరమైన ధృవపత్రం", "type": "select", "options": ["Caste Certificate", "Income Certificate", "Domicile/Residence Certificate", "EWS Certificate", "All of the above"]},
+        {"key": "has_aadhaar", "label": "Do you have an Aadhaar card?", "label_te": "మీకు ఆధార్ కార్డు ఉందా?", "type": "select", "options": ["Yes", "No"]},
+        {"key": "district", "label": "District", "label_te": "జిల్లా", "type": "text"}
+      ]
+    }
+  ]
+}
