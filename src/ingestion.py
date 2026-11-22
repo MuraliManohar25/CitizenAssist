@@ -226,7 +226,7 @@ class VectorStore:
         meta_temp = self.meta_file.with_suffix(".pkl.tmp")
         faiss.write_index(self.index, str(index_temp))
         with open(chunks_temp, "w", encoding="utf-8") as file:
-            json.dump([chunk.to_dict() for chunk in self.chunks], file, ensure_ascii=False, indent=2, encoding="utf-8")
+            json.dump([chunk.to_dict() for chunk in self.chunks], file, ensure_ascii=False, indent=2)
         with open(meta_temp, "wb") as file:
             pickle.dump({"embeddings": self.embeddings}, file)
 
@@ -243,7 +243,7 @@ class VectorStore:
         try:
             self.index = faiss.read_index(str(self.index_file))
             with open(self.chunks_file, "r", encoding="utf-8") as f:
-                data = json.load(f, encoding="utf-8")
+                data = json.load(f)
                 self.chunks = [DocumentChunk(**d) for d in data]
             
             # Index consistency check

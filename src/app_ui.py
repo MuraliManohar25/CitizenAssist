@@ -34,7 +34,7 @@ def vectorstore_dir() -> Path:
 def load_schemes() -> list[dict[str, Any]]:
     config_path = project_path("schemes_config.json")
     with config_path.open("r", encoding="utf-8") as config_file:
-        data = json.load(config_file, encoding="utf-8")
+        data = json.load(config_file)
 
     schemes = data.get("schemes")
     if not isinstance(schemes, list):
