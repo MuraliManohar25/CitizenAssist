@@ -279,6 +279,11 @@ def render_sidebar(schemes: list[dict[str, Any]], active_page: str) -> str:
         st.page_link("pages/2_Eligibility.py", label="Check eligibility")
         if admin_is_enabled():
             st.page_link("pages/3_Admin.py", label="Admin")
+        
+        st.divider()
+        # Auto-voice toggle (only relevant on Ask page, but shown in sidebar)
+        from src.i18n import t
+        st.session_state.auto_voice = st.toggle(t("auto_voice"), value=st.session_state.get("auto_voice", False))
 
         if active_page == "ask":
             st.divider()

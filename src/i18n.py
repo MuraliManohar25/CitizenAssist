@@ -72,6 +72,15 @@ TEXT = {
         "error_eligibility": "The eligibility assessment could not be completed right now. Please try again later.",
         "technical_details": "Technical details",
         
+        # Voice
+        "voice_prompt": "మీ ప్రశ్నను రికార్డ్ చేయడానికి నొక్కండి",
+        "listen": "🔊 వింటారు",
+        "voice_not_heard": "నేను ఏమీ వినలేకపోయాను. దయచేసి మళ్లీ ప్రయత్నించండి.",
+        "voice_unavailable": "వాయిస్ ప్లేబ్యాక్ ప్రస్తుతం అందుబాటులో లేదు.",
+        "voice_privacy": "ఆడియో మరియు టెక్స్ట్ గూగుల్ మరియు మైక్రోసాఫ్ట్ సేవల ద్వారా ప్రాసెస్ చేయబడతాయి.",
+        "auto_voice": "స్వయంచాలకంగా వాయిస్ సమాధానాలు ప్లే చేయండి",
+        "voice_rate_limited": "రేట్ లిమిట్ మించిపోయింది. దయచేసి ఒక నిమిషం తర్వాత మళ్లీ ప్రయత్నించండి.",
+        
         # Labels
         "your_age": "Your Age",
         "state_of_residence": "State of Residence",
