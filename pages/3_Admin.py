@@ -66,7 +66,7 @@ indexed_schemes: dict[str, dict[str, object]] = {}
 if chunks_file.exists():
     try:
         with chunks_file.open("r", encoding="utf-8") as chunk_file:
-            chunks = json.load(chunk_file)
+            chunks = json.load(chunk_file, encoding="utf-8")
         chunk_count = len(chunks)
         for chunk in chunks:
             scheme_id = str(chunk.get("scheme_id", "unknown"))

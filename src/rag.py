@@ -30,9 +30,9 @@ class LLMServiceError(RuntimeError):
 def setup_llm():
     """Configure Google Gemini API — tries new SDK first, falls back to old."""
     global _llm_client, _llm_type
-    api_key = os.getenv("GOOGLE_API_KEY", "")
+    api_key = os.getenv("GOOGLE_API_KEY", "") or st.secrets.get("GOOGLE_API_KEY", "")
     if not api_key or api_key == "your_google_api_key_here":
-        raise LLMServiceError("The language model is not configured.")
+        raise LLMServiceError("The language model is not configured. Please set GOOGLE_API_KEY in .env or Streamlit secrets.")
     model_name = os.getenv("LLM_MODEL", "gemini-3.5-flash-lite")
 
     # Try new google-genai SDK first

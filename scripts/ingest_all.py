@@ -56,7 +56,7 @@ def main():
 
     # Load schemes config
     with open(schemes_config_path, "r", encoding="utf-8") as f:
-        config = json.load(f)
+        config = json.load(f, encoding="utf-8")
     schemes = config["schemes"]
     print(f"\n[INFO] Loaded {len(schemes)} scheme configurations")
 

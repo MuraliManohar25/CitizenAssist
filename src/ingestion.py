@@ -15,6 +15,7 @@ from dataclasses import dataclass, asdict
 import pymupdf as fitz  # PyMuPDF (use pymupdf to avoid deprecation warning)
 import numpy as np
 from sentence_transformers import SentenceTransformer
+import streamlit as st
 
 logger = logging.getLogger(__name__)
 
@@ -127,6 +128,17 @@ def detect_section(text: str) -> str:
 # Embedding
 # ---------------------------------------------------------------------------
 
+@st.cache_resource
+def get_embedding_model(model_name: str = "all-MiniLM-L6-v2"):
+    """Load and cache the embedding model."""
+    logger.info(f"Loading embedding model: {model_name}")
+    try:
+        model = SentenceTransformer(model_name, local_files_only=True)
+    except OSError:
+        logger.info("Embedding model is not cached locally; downloading it once.")
+        model = SentenceTransformer(model_name)
+    return model
+
 class EmbeddingEngine:
     """Lightweight sentence embedding engine."""
 
@@ -141,15 +153,7 @@ class EmbeddingEngine:
 
     def load(self):
         if self.model is None:
-            logger.info(f"Loading embedding model: {self.model_name}")
-            # Use an existing model snapshot without a network metadata request.
-            # A fresh deployment downloads it once only when no local snapshot
-            # exists, then future loads use the local cache.
-            try:
-                self.model = SentenceTransformer(self.model_name, local_files_only=True)
-            except OSError:
-                logger.info("Embedding model is not cached locally; downloading it once.")
-                self.model = SentenceTransformer(self.model_name)
+            self.model = get_embedding_model(self.model_name)
         return self
 
     def embed(self, texts: List[str]) -> np.ndarray:
@@ -222,7 +226,7 @@ class VectorStore:
         meta_temp = self.meta_file.with_suffix(".pkl.tmp")
         faiss.write_index(self.index, str(index_temp))
         with open(chunks_temp, "w", encoding="utf-8") as file:
-            json.dump([chunk.to_dict() for chunk in self.chunks], file, ensure_ascii=False, indent=2)
+            json.dump([chunk.to_dict() for chunk in self.chunks], file, ensure_ascii=False, indent=2, encoding="utf-8")
         with open(meta_temp, "wb") as file:
             pickle.dump({"embeddings": self.embeddings}, file)
 
@@ -239,12 +243,16 @@ class VectorStore:
         try:
             self.index = faiss.read_index(str(self.index_file))
             with open(self.chunks_file, "r", encoding="utf-8") as f:
-                data = json.load(f)
+                data = json.load(f, encoding="utf-8")
                 self.chunks = [DocumentChunk(**d) for d in data]
+            
+            # Index consistency check
             if self.index.ntotal != len(self.chunks):
                 raise ValueError(
-                    f"Index has {self.index.ntotal} vectors but metadata has {len(self.chunks)} chunks."
+                    f"Index has {self.index.ntotal} vectors but metadata has {len(self.chunks)} chunks. "
+                    f"Please re-run ingestion: python scripts/ingest_all.py"
                 )
+            
             if self.meta_file.exists():
                 with open(self.meta_file, "rb") as f:
                     meta = pickle.load(f)

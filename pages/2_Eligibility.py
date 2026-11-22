@@ -183,8 +183,10 @@ if submitted:
                 )
                 st.session_state.eligibility_result = assessment
                 st.session_state.eligibility_scheme = scheme["id"]
-            except Exception:
+            except Exception as e:
                 st.error("The eligibility assessment could not be completed right now. Please try again later.")
+                with st.expander("Technical details"):
+                    st.code(str(e))
 
 if st.session_state.get("eligibility_scheme") == scheme.get("id"):
     assessment = st.session_state.get("eligibility_result")

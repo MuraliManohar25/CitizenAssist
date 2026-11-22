@@ -134,13 +134,15 @@ if question:
                 st.session_state.chat_history.append(
                     {"role": "assistant", "content": answer, "sources": sources}
                 )
-            except Exception:
+            except Exception as e:
                 safe_error = (
                     "క్షమించండి, ప్రస్తుతం సమాధానం రూపొందించలేకపోయాను. కొద్దిసేపటి తర్వాత మళ్లీ ప్రయత్నించండి లేదా అధికారిక మూలాన్ని చూడండి."
                     if language == "Telugu"
                     else "I could not prepare an answer right now. Please try again shortly or check the official source."
                 )
                 st.error(safe_error)
+                with st.expander("Technical details"):
+                    st.code(str(e))
                 st.session_state.chat_history.append(
                     {"role": "assistant", "content": safe_error, "sources": []}
                 )
@@ -166,8 +168,10 @@ with documents_tab:
                     )
                     st.session_state.docs_steps_scheme_id = scheme["id"]
                     st.rerun()
-                except Exception:
+                except Exception as e:
                     st.error("The document summary could not be prepared. Please try again later.")
+                    with st.expander("Technical details"):
+                        st.code(str(e))
     else:
         document_result = st.session_state.get("docs_steps_content", {})
         if document_result.get("content"):
